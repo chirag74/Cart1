@@ -36,6 +36,39 @@ products:[
         }
         
     }
+    handleIncreaseQuantity=(product)=>{
+        console.log('heyy please inc the qty of',product);
+        const {products}=this.state;
+        const index=products.indexOf(product);
+
+        products[index].qty +=1;
+         
+        this.setState({
+            products
+        });
+
+    }
+    handleDecreaseQuantity=(product)=>{
+console.log('heyy plz dec the qty of',product);
+const {products}=this.state;
+const index=products.indexOf(product);
+if(products[index].qty===0){
+    return; 
+}
+products[index].qty -=1;
+
+this.setState({
+    products
+});
+    }
+    handleDeleteProduct=(id)=>{
+        const  {products}=this.state;
+        const items=products.filter((item)=>item.id!==id);
+
+        this.setState({
+            products:items
+        });
+    }
   render (){
     //   const arr=[1,2,3,4,5];
     const  {products}=this.state;
@@ -48,7 +81,9 @@ return(
      <CartItem 
      product={product}
       key={product.id}
-       
+       onIncreaseQuantity={this.handleIncreaseQuantity}
+       onDecreaseQuantity={this.handleDecreaseQuantity}
+       onDeleteProduct={this.handleDeleteProduct}
       />
      )  
     })};
